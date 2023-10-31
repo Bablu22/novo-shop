@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 
 const HomeProducts = () => {
-  const productsToShow = 8;
+  const productsToShow = 12;
 
   const dispatch = useDispatch();
   const { products, loading } = useSelector((state) => state.products);
