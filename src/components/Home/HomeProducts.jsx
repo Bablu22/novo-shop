@@ -5,6 +5,8 @@ import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 
 const HomeProducts = () => {
+  const productsToShow = 8;
+
   const dispatch = useDispatch();
   const { products, loading } = useSelector((state) => state.products);
 
@@ -38,18 +40,25 @@ const HomeProducts = () => {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-            {productsByCategory[categoryName].map((product) => (
-              <ProductCard
-                key={product._id}
-                product={product}
-                loading={loading}
-              />
-            ))}
+            {productsByCategory[categoryName]
+              .slice(0, productsToShow)
+              .map((product) => (
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  loading={loading}
+                />
+              ))}
           </div>
         </div>
       ))}
+      {loading && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+          {Array.from({ length: 12 }).map((_, index) => (
+            <ProductCard key={`skeleton-${index}`} loading={loading} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
-
-export default HomeProducts;
